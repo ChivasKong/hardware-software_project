@@ -48,7 +48,9 @@ public:
       cv::circle(cv_ptr->image, cv::Point(50, 50), 10, CV_RGB(255,0,0));  //画圆
 
     // Update GUI Window
-    cv::imshow(OPENCV_WINDOW, cv_ptr->image);
+    cv::Mat img = cv_ptr->image;
+    blur(cv_ptr->image, img, cv::Size(3, 3));//opencv自带的均值滤波函数
+    cv::imshow(OPENCV_WINDOW, img);
     cv::waitKey(3);
     
     // Output modified video stream
