@@ -1,14 +1,24 @@
 # s_h_project
-The project of hardware&amp;software co design
-创建ros工作空间
+The project of hardware &amp; software co-design course
 ~~~
-catkin_make
-cd src/
-git clone https://github.com/leeyanghao/hardware-sortware_project.git
-cd hardware-sortware_project
+cd /yourpath/catkin_ws/src/
+git clone https://github.com/leeyanghao/hardware-software_project.git
 git clone https://github.com/ros-perception/vision_opencv.git
-cd ..
-cd ..
+~~~
+
+After cloning successfully,you are supposed to put the dataset directory(which you have already downloaded from the wechat group) : dvs_msgs into your    catkin_ws/src/ directory.
+
+~~~
+cd /yourpath/catkin_ws/
 catkin_make
 ~~~
+
+After compiling successfully:
+~~~
+
+~~~
+
+
+
+
 
