@@ -11,6 +11,28 @@ using namespace cv;
 
 static const std::string OPENCV_WINDOW = "Image window";   //申明一个GUI 的显示的字符串
 
+void colorReduce(Mat& image)
+{
+   for(int i=0;i<image.rows;i++)
+   {
+      for(int j=0;j<image.cols;j++)
+      {
+	if(image.at<Vec3b>(i,j)[0] == 0 && image.at<Vec3b>(i,j)[1] == 0 && image.at<Vec3b>(i,j)[2] == 0)
+        {
+          image.at<Vec3b>(i,j)[0]=255;
+          image.at<Vec3b>(i,j)[1]=255;
+          image.at<Vec3b>(i,j)[2]=255;
+        }
+        else if(image.at<Vec3b>(i,j)[0] == 255 && image.at<Vec3b>(i,j)[1] == 255 && image.at<Vec3b>(i,j)[2] == 255)
+	{
+	  image.at<Vec3b>(i,j)[0]=0;
+          image.at<Vec3b>(i,j)[1]=0;
+          image.at<Vec3b>(i,j)[2]=0;
+	}
+      }
+   }
+}
+
 class ImageConverter    //申明一个图像转换的类
 {
   ros::NodeHandle nh_;        //实例化一个节点
@@ -55,7 +77,11 @@ public:
 
     vector<Vec3f> circles;
     cv::Mat img = cv_ptr->image;
-    blur(img, img, cv::Size(3, 3));//opencv自带的均值滤波函数
+Mat img__ = imread("/home/lee/work/lab/mypaper/IROS2018/IROS2018/images/point_cloud_detection_1.jpg");
+    medianBlur(img, img, 3);//opencv自带的中值滤波函数
+colorReduce(img__); 
+//medianBlur(img__, img__, 3);//opencv自带的中值滤波函数
+imwrite("/home/lee/point_cloud_detection_1.jpg",img__);
     Mat rgb;
     cvtColor(img,rgb,COLOR_GRAY2BGR);
     if (img.rows > 60 && img.cols > 60){
@@ -86,6 +112,7 @@ public:
     
     // Output modified video stream
     image_pub_.publish(cv_ptr->toImageMsg());
+return ;
   }
 };
 
